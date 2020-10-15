@@ -1,21 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//The powerup script controls the various powerups the player can collect
 public class Powerup : MonoBehaviour
 {
+    //_speed controls how fast the powerups fall down the screen
     [SerializeField]
     private float _speed = 3.0f;
+
+    [SerializeField]
+    private int _powerupID;
     //ID for Powerups
     //0 = Triple Shot
     //1 = Speed 
-    //2 = Sheilds
+    //2 = Shields
     //3 = Ammo
-    //4 = HP
+    //4 = Repair Kit
     //5 = Homing Shot
-    [SerializeField]
-    private int _powerupID;
     void Update()
+    {
+        MoveDown();
+    }
+    //Function for Powerup Movement
+    private void MoveDown()
     {
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
 
@@ -28,10 +35,13 @@ public class Powerup : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            //Find and play the "PowerUp" Audio Clip
             FindObjectOfType<AudioManager>().Play("PowerUp");
+            //Get a ref to the player from .other
             Player player = other.GetComponent<Player>();
             if(player != null)
-            {           
+            {
+                //Switchcase that gives the Player script the functionality of the powerup that is collected
                 switch (_powerupID)
                 {
                     case 0:
@@ -59,6 +69,7 @@ public class Powerup : MonoBehaviour
 
                 }
             }
+            //After the player collects the powerup destory it
             Destroy(this.gameObject);
         }
     }

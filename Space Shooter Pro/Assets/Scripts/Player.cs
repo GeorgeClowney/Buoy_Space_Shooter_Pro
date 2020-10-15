@@ -1,27 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//The Player script controls everything revoling the player
+//Is currently being updated
 public class Player : MonoBehaviour
 {
+    //Player stats
     [SerializeField]
     private int _lives = 3, _score, _ammo = 15, _shields;
     public int homingShots;
-
     [SerializeField]
     private float _speed = 3.5f, _fireRate = 0.5f, _canFire = -1f, _thusterEnergy = 15f;
     private float _startingSpeed, _speedBoosted;
-
     [SerializeField]
     private GameObject _laserPrefab, _tripleShotPrefab, _sheildPrefab, _leftEnginePrefab, _rightEnginePrefab;
- 
     [SerializeField]
     private bool _tripleShot, _speedBoost, _thrustersEngaged, _leftHit, _rightHit;
-
     private UIManager _uiManager;
     private SpawnManager _spawnManager;
-    [SerializeField]
-    private CameraShake cameraShake;
+    private CameraShake _cameraShake;
     void Start()
     {
         _startingSpeed = _speed;
@@ -36,6 +33,11 @@ public class Player : MonoBehaviour
         if (_uiManager == null)
         {
             Debug.LogError("The UI is NULL");
+        }
+        _cameraShake = GameObject.Find("CameraHolder").GetComponentInChildren<CameraShake>();
+        if (_spawnManager == null)
+        {
+            Debug.LogError("The Player can't find the CameraShake script inside the CameraHolder Prefab");
         }
     }
     void Update()
@@ -141,7 +143,7 @@ private void Shooting()
     }
     public void Damage()
     {
-        StartCoroutine(cameraShake.Shake(.15f, .5f));
+        StartCoroutine(_cameraShake.Shake(.15f, .5f));
         if (_shields >= 1)
         {
             _shields--;

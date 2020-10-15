@@ -1,6 +1,9 @@
 ﻿using UnityEngine.Audio;
 using UnityEngine;
-
+//The Sound class contains basic info for Audio Clips
+//is used in the AudioManager script
+//Based on a tutorial video by Brackeys
+//Link: https://bit.ly/2GULEkd
 [System.Serializable]
 public class Sound
 {

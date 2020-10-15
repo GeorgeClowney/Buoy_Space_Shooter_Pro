@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//The Camerashake script is stored in the GameObject "CameraHolder"
+//Based on a tutorial video by Brackeys
+//Link: https://bit.ly/37c5j9Y
 public class CameraShake : MonoBehaviour
 {
     public IEnumerator Shake(float duration, float magnitude)
